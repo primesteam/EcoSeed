@@ -1,25 +1,69 @@
 # EcoSeed
-Every plant needs a someone to keep an eye on it. Or maybe something? EcoSeed is a eco friendly system that takes good care of your plant and notifies you about its growth progress.
+Every plant needs a someone to keep an eye on it. Or maybe something? 
 
 ![logo-new](https://user-images.githubusercontent.com/71717457/172488299-8806ea04-cc92-4af0-a666-15fdc0f39026.png)
-# Main Idea
-Our idea is a system that will monitor a plant (its height, weight and soil) and also rotate it to a specific position where the amount of light is as much as possible. After that, we collect these information and upload them in a PHP database. To do this, we needed to learn some new things about the components that we used and also the way we wanted them to work.
+# Abstract
+**EcoSeed** is an eco friendly system that takes good care of your plant. The system consists of several sensors 
+used to monitor specific factors of the growth rate of a plant, such as its weight and height. Moreover, EcoSeed is
+able to take care of the plant, providing water whenever needed and turning the pot to the point where the amount
+of sunlight is highest. Last but not least, our system collects all the measured values to a database, providing the
+users with information for study and data mining. 
 
-# Functionality
-The **Ecoseed** system consists of two parts. The first is the Esp32 with its accessories which sends the collected data to the second part which is the server which in turn, displays the data on a web application.
+![logo-new](photos/photo1.jpg)
 
 # Components
-<ul>
-    <li>1x <b>Esp Wroom 32</b></li>
-    <li>2x <b>Stepper Motors</b></li>
-    <li>1x <b>Ultrasonic Sensor</b></li>
-    <li>1x <b>Soil Hygrometer Humidity Detection Module Moisture Sensor</b></li>
-    <li>1x <b>RTC Module</b></li>
-    <li>1x <b>I2C Module</b></li>
-    <li>1x <b>16x2 Character LCD Module</b></li>
-    <li>1x <b>LDR Sensor</b></li>
-    <li>1x <b>Force Sensitive Sensor</b></li>
-</ul>
+**Ecoseed** is a wooden-plastic making, mainly consisting of two parts:
+#### The base
+On one side, there is the base on which the flowerpot is placed. At the top of the base, you can find a stepper with an 
+LDR sensor on it. This part continuously rotates to detect the best direction based of the maximum amount of sunlight. 
+The base sits on three bearings which help it to rotatethe flowerpot easily. Next to the base there is another stepper 
+motor, which rotates the flowerpot towards the direction detected.
 
-# Detailed Description
-First of all, there is a plant on top of a base where there are attached one stepper motor and the force sensitive sensor. On top of the plant, there is an ultrasonic sensor, which measures the height of the plant. In the soil of the plant, there is a moisture sensor which measures the soil moisture of the plant. At the highest point of the structure, there is a ldr attached to the second stepper motor, which rotates in a specific duration of time and finds the best spot with the most light. Then, it turns the flower pot in that direction. Finally, Esp32 collects the data and sents them to the server, where these data are processed and are displayed to the webserver.
+Bottom part of the base             |  Top part of the base
+:-------------------------:|:-------------------------:
+![logo-new](photos/photo2.jpg)  |  ![logo-new](photos/photo3.jpg)
+
+Bellow the base, you will find a force sensor which is used to calculate the weight of the plant. Last, under the top
+part of the base, there is an ultrasonic sensor which helps to calculate the height of the plant.
+
+Force sensor             |  Ultrasonic sensor
+:-------------------------:|:-------------------------:
+![logo-new](photos/photo5.jpg)  |  ![logo-new](photos/photo6.jpg)
+
+#### The control panel
+On the other side, there is the control panel, an enclosure made of plastic and plexiglas on top of a 12V battery. The 
+control panel contains the rest of the electronic components of the system:
+- <b>ESP32</b> (the micro-controller responsible for the functionality of the system)
+- <b>Controllers</b> for the two steppers
+- <b>Relay module</b> (used to control the water pump)
+- <b>RTC module</b> (used to record the measured values every two hours)
+- <b>Soil moisture</b> sensor controller
+- <b>Step-down</b> module (to convert battery's 12V to 5V needed)
+- <b>Voltmeter</b> (to check the circuit's voltage)
+- <b>LCD display</b> (to monitor measured values in real time) 
+
+Top view             |  Side view
+:-------------------------:|:-------------------------:
+![logo-new](photos/photo7.jpg)  |  ![logo-new](photos/photo8.jpg)
+
+All the plastic parts were printed with PLA on an Ender 3 pro 3D printer. All the models were custom made by our team.
+![logo-new](photos/photo9.png)
+
+# Functionality
+Like every micro-controller, **EcoSeed** performs in a loop. Thus, it first initializes the necessary modules
+and then repeatedly does the following actions:
+- rotates the stepper motor with the LDF sensor to detect the best direction according to the sunlight
+- rotates the flowerpot stepper motor if necessary
+- measures the height, weight and moisture
+- if the time is right, sends the measured data to the server database
+- updates the LCD display with the measured data
+
+At any time, the user can check the collected data in a page of our server.
+![logo-new](photos/photo10.png)
+
+# Future Work
+During the development of **EcoSeed** various ideas came to our minds as improvements to our system. Since we
+established a connection with a server, we could make our system a bit more clever. We could store more data in
+our database and, according to the plant species in the pot, the system would provide the amount of water or any
+other required ingredients, based on data stored in our database. Moreover, a camera could be attached to take
+pictures of the plant several times during a day. We would be more than happy to hear your input on our system.
