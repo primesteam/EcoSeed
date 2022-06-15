@@ -52,7 +52,7 @@ All the plastic parts were printed with PLA on an Ender 3 pro 3D printer. All th
 # Functionality
 Like every micro-controller, **EcoSeed** performs in a loop. Thus, it first initializes the necessary modules
 and then repeatedly does the following actions:
-- rotates the stepper motor with the LDF sensor to detect the best direction according to the sunlight
+- rotates the stepper motor with the LDR sensor to detect the best direction according to the sunlight
 - rotates the flowerpot stepper motor if necessary
 - measures the height, weight and moisture
 - if the time is right, sends the measured data to the server database
